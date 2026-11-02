@@ -65,14 +65,13 @@ export const OnboardingModal: React.FC<OnboardingModalProps> = ({ isOpen, onComp
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-[#FAF9F6] p-6 overflow-y-auto">
       <div className="max-w-sm w-full min-h-[440px] flex flex-col justify-between py-6">
         
-        {/* Top Header */}
+        {/* Top Header: Pure Wordmark Logo on Left, Skip on Right */}
         <div className="flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <div className="w-7 h-7 rounded-full bg-[#0f382c] flex items-center justify-center select-none">
-              <span className="text-[#e4f576] font-extrabold text-xs">B</span>
-            </div>
-            <span className="text-xs font-bold text-[#18241f] tracking-tight">BOOKR</span>
-          </div>
+          <img
+            src="/bookr-logo.png"
+            alt="BOOKR"
+            className="h-6 w-auto object-contain select-none"
+          />
 
           {currentSlide < 3 && (
             <button

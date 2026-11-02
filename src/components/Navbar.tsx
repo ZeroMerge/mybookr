@@ -21,18 +21,15 @@ export const Navbar: React.FC<NavbarProps> = ({
     <header className="sticky top-0 z-40 bg-[#FAF9F6]/85 backdrop-blur-xl">
       <div className="max-w-2xl mx-auto px-4 pt-3 pb-2 flex flex-col gap-2.5">
         
-        {/* Top Header: Logo Mark & Shop on Left, Hamburger/X on Right */}
+        {/* Top Header: Pure Wordmark Logo on Left, Hamburger/X on Right */}
         <div className="flex items-center justify-between">
           
-          {/* Logo & Hustle */}
-          <div className="flex items-center gap-2.5">
-            <div className="w-8 h-8 rounded-full bg-[#0f382c] flex items-center justify-center select-none shrink-0">
-              <span className="text-[#e4f576] font-extrabold text-xs">B</span>
-            </div>
-            <span className="text-sm font-bold text-[#18241f] truncate max-w-[180px]">
-              {settings.hustleName || 'BOOKR'}
-            </span>
-          </div>
+          {/* Wordmark Logo (no circles, no duplicate text) */}
+          <img
+            src="/bookr-logo.png"
+            alt="BOOKR"
+            className="h-6 sm:h-7 w-auto object-contain select-none"
+          />
 
           {/* Right: Hamburger button with clean morph to X */}
           <button
