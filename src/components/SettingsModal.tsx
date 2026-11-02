@@ -13,6 +13,8 @@ interface SettingsModalProps {
   sales: Sale[];
   expenses: Expense[];
   inventory: InventoryItem[];
+  canInstall?: boolean;
+  onInstall?: () => void;
 }
 
 export const SettingsModal: React.FC<SettingsModalProps> = ({
@@ -21,6 +23,8 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
   settings,
   sales,
   expenses,
+  canInstall,
+  onInstall,
 }) => {
   const [userName, setUserName] = useState(settings.userName || '');
   const [hustleName, setHustleName] = useState(settings.hustleName || '');
@@ -152,6 +156,22 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
               onChange={setInventoryEnabled}
             />
           </div>
+
+          {/* Install PWA Button (If supported/installable) */}
+          {canInstall && onInstall && (
+            <div className="pt-2">
+              <Button
+                type="button"
+                variant="lemonade"
+                size="md"
+                onClick={onInstall}
+                className="w-full justify-center text-xs font-bold"
+              >
+                <SolidDownload className="w-4 h-4" />
+                <span>Install BOOKR on Home Screen</span>
+              </Button>
+            </div>
+          )}
 
           <Button
             type="submit"

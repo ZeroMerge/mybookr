@@ -9,13 +9,18 @@ import { RecordSaleModal } from '@/components/RecordSaleModal';
 import { RecordExpenseModal } from '@/components/RecordExpenseModal';
 import { SettingsModal } from '@/components/SettingsModal';
 import { OnboardingModal } from '@/components/OnboardingModal';
+import { PWAInstallBanner } from '@/components/PWAInstallBanner';
 import { Button } from '@/components/ui/button';
 import { SolidPlus } from '@/components/ui/icons';
 import { formatMoney, getTimeGreeting, getFriendlyLocation } from '@/lib/utils';
+import { usePWA } from '@/hooks/usePWA';
 
 export function App() {
   const [currentTab, setCurrentTab] = useState<'sales' | 'expenses' | 'inventory'>('sales');
   
+  // PWA install controller
+  const { showBanner, canInstall, install, dismiss } = usePWA();
+
   // Modals state
   const [isRecordSaleOpen, setIsRecordSaleOpen] = useState(false);
   const [isRecordExpenseOpen, setIsRecordExpenseOpen] = useState(false);
@@ -96,7 +101,7 @@ export function App() {
       {/* Main Content Area */}
       <main className="flex-1 max-w-2xl w-full mx-auto px-4 py-4 space-y-4">
         
-        {/* Apple Hero Header: Crisp greeting, zero fluff */}
+        {/* Apple Hero Header */}
         <section className="flex items-center justify-between pt-1">
           <div>
             <h1 className="text-xl sm:text-2xl font-black text-[#18241f] tracking-tight">
@@ -108,7 +113,7 @@ export function App() {
           </span>
         </section>
 
-        {/* Apple Financial Balance Card (The permanent anchor - never feels empty!) */}
+        {/* Apple Financial Balance Card */}
         <div className="rounded-3xl p-5 bg-white space-y-4">
           <div className="flex items-center justify-between">
             <span className="text-xs font-semibold text-[#5e6b64]">Total Cash Made</span>
@@ -137,7 +142,7 @@ export function App() {
             )}
           </div>
 
-          {/* Instant Quick Action Buttons (Always visible and accessible) */}
+          {/* Instant Quick Action Buttons */}
           <div className="grid grid-cols-2 gap-2 pt-2 border-t border-black/[0.04]">
             <Button
               variant="primary"
@@ -202,6 +207,8 @@ export function App() {
         sales={sales}
         expenses={expenses}
         inventory={inventory}
+        canInstall={canInstall}
+        onInstall={install}
       />
 
       {/* Onboarding Dialog */}
@@ -209,6 +216,14 @@ export function App() {
         isOpen={!settings.hasCompletedOnboarding}
         onComplete={handleCompleteOnboarding}
       />
+
+      {/* PWA Install Banner (Only shows once until accepted or dismissed; never annoys) */}
+      {showBanner && (
+        <PWAInstallBanner
+          onInstall={install}
+          onDismiss={dismiss}
+        />
+      )}
 
     </div>
   );
